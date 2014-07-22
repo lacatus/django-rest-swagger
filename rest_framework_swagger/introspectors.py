@@ -135,7 +135,7 @@ class BaseMethodIntrospector(object):
         path_params = self.build_path_parameters()
         body_params = self.build_body_parameters()
         form_params = self.build_form_parameters()
-        query_params = self.build_query_params_from_docstring()
+        parsed_params = self.parse_params_from_docstring()
 
         if path_params:
             params += path_params
@@ -146,8 +146,8 @@ class BaseMethodIntrospector(object):
             if not form_params and body_params is not None:
                 params.append(body_params)
 
-        if query_params:
-            params += query_params
+        if parsed_params:
+            params += parsed_params
 
         return params
 
@@ -239,7 +239,7 @@ class BaseMethodIntrospector(object):
 
         return data
 
-    def build_query_params_from_docstring(self):
+    def parse_params_from_docstring(self):
         params = []
 
         docstring = self.retrieve_docstring()
@@ -255,7 +255,17 @@ class BaseMethodIntrospector(object):
         for line in split_lines:
             param = line.split(' -- ')
             if len(param) == 2:
-                params.append({'paramType': 'query',
+                paramtype = 'query'
+                match = re.match(r"\((P|B|F|Q)\).*", param[0].strip())
+                if match:
+                    annotated = match.group(1)
+                    if annotated == "P":
+                        paramtype = "path"
+                    elif annotated == "B":
+                        paramtype = "body"
+                    elif annotated == "F":
+                        paramtype = "form"
+                params.append({'paramType': paramtype,
                                'name': param[0].strip(),
                                'description': param[1].strip(),
                                'dataType': ''})
