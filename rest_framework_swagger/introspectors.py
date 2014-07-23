@@ -259,6 +259,7 @@ class BaseMethodIntrospector(object):
                 match = re.match(r"\((P|B|F|Q)\).*", param[0].strip())
                 if match:
                     annotated = match.group(1)
+                    param[0] = re.sub(r"\((P|B|F|Q)\)", "", param[0].strip())
                     if annotated == "P":
                         paramtype = "path"
                     elif annotated == "B":
