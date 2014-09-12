@@ -106,6 +106,7 @@ Its also possible to use markdown for the docstring.
         
         GET: param1 -- A first parameter (string)
         POST: param2 -- A second parameter (integer)
+        HEADER: Authorization -- "Token <auth_token>"
         """
 ```
 
