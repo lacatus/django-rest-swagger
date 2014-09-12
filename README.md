@@ -96,7 +96,8 @@ generated in combination from code analysis and comment extraction. Here are som
 ```
 
 This can even be extended to define parameter types and their submit methods. 
-The default for all parameters is submit method query and parameter type string.
+The default for all parameters is submit method `query` and parameter type `string`.
+Its also possible to use markdown for the docstring.
 
 ```python
     class Countries(APIView):
