@@ -1,8 +1,6 @@
 ## HOW TO CLONE
 
-    ```python
     pip install git+https://github.com/lacatus/django-rest-swagger.git@master
-    ```
 
 # Django REST Swagger
 ####An API documentation generator for Swagger UI and Django REST Framework version > 2.3.5
